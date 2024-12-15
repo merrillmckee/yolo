@@ -23,10 +23,10 @@ class YoloDataset(Dataset):
         labels_path = self.data_path / "train" / "labels"
 
         # save image paths and image labels
-        self.img_paths = [filepath for filepath in imgs_path.iterdir() if filepath.is_file()]
+        self.img_paths = [filepath for filepath in sorted(imgs_path.iterdir()) if filepath.is_file()]
         self.img_labels = [
             pd.read_csv(filepath, delimiter=' ').to_numpy()
-            for filepath in labels_path.iterdir()
+            for filepath in sorted(labels_path.iterdir())
             if filepath.is_file()
         ]
         if len(self.img_paths) != len(self.img_labels):
