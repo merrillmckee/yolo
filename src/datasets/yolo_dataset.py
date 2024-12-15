@@ -17,6 +17,7 @@ class YoloDataset(Dataset):
         with open(data_filepath) as f:
             self.data_yaml: dict = yaml.safe_load(f)
         self.data_path: Path = data_filepath.parent
+        self.names = self.data_yaml["names"]
 
         imgs_path = self.data_path / "train" / "images"
         labels_path = self.data_path / "train" / "labels"

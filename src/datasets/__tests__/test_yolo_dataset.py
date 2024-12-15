@@ -16,6 +16,7 @@ def test_yolo_dataset():
     assert dataset.img_paths is not None
     assert dataset.img_labels is not None
     assert len(dataset) >= 50  # gdrive often limits downloads to 50 which may be the size of a prototype test set
+    assert len(dataset.names) == 9
 
     img, label = dataset[0]
     assert img.shape == (3, 720, 1280)  # channels x height x length
