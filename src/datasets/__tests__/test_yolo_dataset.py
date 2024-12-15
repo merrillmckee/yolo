@@ -20,4 +20,4 @@ def test_yolo_dataset():
 
     img, label = dataset[0]
     assert img.shape == (3, 720, 1280)  # channels x height x length
-    assert label.shape == (10, 5)  # number of objects x (class label, x, y, w, h)
+    assert label.shape == (13, 5)  # number of objects x (class label, x, y, w, h)

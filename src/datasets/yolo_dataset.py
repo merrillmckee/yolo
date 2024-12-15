@@ -1,5 +1,6 @@
 import yaml
 import pandas as pd
+import torch
 
 from pathlib import Path
 from torch.utils.data import Dataset
@@ -25,7 +26,7 @@ class YoloDataset(Dataset):
         # save image paths and image labels
         self.img_paths = [filepath for filepath in sorted(imgs_path.iterdir()) if filepath.is_file()]
         self.img_labels = [
-            pd.read_csv(filepath, delimiter=' ').to_numpy()
+            torch.tensor(pd.read_csv(filepath, delimiter=' ').to_numpy())
             for filepath in sorted(labels_path.iterdir())
             if filepath.is_file()
         ]
