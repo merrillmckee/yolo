@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
 from datasets.yolo_dataset import YoloDataset
+from datasets.yolo_dataloader import YoloDataLoader
 from matplotlib.pyplot import Axes
 from matplotlib.patches import Rectangle
 
@@ -70,9 +71,46 @@ def visualize_dataset(dataset: YoloDataset):
         plt.close()
 
 
+def visualize_dataloader(data_loader: YoloDataLoader):
+
+    for batch_images, batch_labels in data_loader:
+        for i, img in enumerate(batch_images):
+            fig, ax = plt.subplots()
+            img = img.permute(1, 2, 0)
+            plt.imshow(img)
+
+            labels = batch_labels[batch_labels[:, 0] == i]
+            for label in labels:
+                _, label_index, x, y, w, h = label
+                label_index = int(label_index)
+
+                ulx = (x - w / 2.0)
+                uly = (y - h / 2.0)
+                name = dataset.names[label_index]
+                draw_box(ax, [ulx, uly], [w, h], img.shape[:2], name)
+
+            plt.axis('equal')
+            plt.show()
+
+            # cleanup
+            plt.close()
+        break  # 1 batch
+
+
 if __name__ == "__main__":
     data_filepath = "../../data/nba1022/data.yaml"
     dataset = YoloDataset(data_filepath)
+    data_loader = YoloDataLoader(
+        dataset=dataset,
+        batch_size=4,
+        shuffle=False,
+    )
 
-    # visualize
-    visualize_dataset(dataset)
+    for x in dataset:
+        print()
+
+    # visualize Dataset
+    # visualize_dataset(dataset)
+
+    # visualize DataLoader
+    visualize_dataloader(data_loader)
