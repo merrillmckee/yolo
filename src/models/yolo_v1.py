@@ -61,7 +61,7 @@ class YoloV1(nn.Module):
             nn.Dropout(0.5),
             nn.Linear(
                 in_features=4096,
-                out_features=num_cells * num_cells * (5 * num_boxes + num_classes),  # 5: w, h, x, y, p_object
+                out_features=num_cells * num_cells * (5 * num_boxes + num_classes),  # 5: x, y, w, h, p_object
             ),
             nn.Sigmoid(),
         )
