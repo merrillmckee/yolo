@@ -4,7 +4,7 @@ from torch.utils.data import Dataset
 
 def test_yolo_dataset():
     # use actual downloaded data; could update to use simplified unit test data
-    data_filepath = "../../../data/nba1022/data.yaml"
+    data_filepath = "data/nba1022/data.yaml"
 
     # act
     dataset = YoloDataset(data_filepath)
